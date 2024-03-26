@@ -1,0 +1,16 @@
+#main {
+    height: 100%;
+    width: 100%;
+}
+
+#side-bar-view {
+    width: 30%;
+    height: 100%;
+    float: left;
+}
+
+#map-view {
+    width: 70%;
+    height: 100%;
+    float: right;
+}
