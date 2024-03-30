@@ -2,17 +2,16 @@ import React, {useEffect, useRef, useState} from "react";
 import "../../assets/styles/map.css"
 
 const MapView = () => {
-    const mapElement = useRef<HTMLDivElement | null>(null);
-    const [newMap, setNewMap] = useState<naver.maps.Map | null>(null);
+    const mapRef = useRef<HTMLDivElement | null>(null);
+    // const [naverMap, setNaverMap] = useState<naver.maps.Map | undefined>(undefined);
 
-    let map : naver.maps.Map;
-
+    let naverMap : naver.maps.Map;
     useEffect(() => {
-        if(!mapElement.current) return;
+        if (!mapRef.current) return;
 
         const center = new naver.maps.LatLng(37.511337, 127.012084);
-        const mapOptions : naver.maps.MapOptions = {
-            center : center,
+        const mapOptions: naver.maps.MapOptions = {
+            center: center,
             zoom: 15,
             minZoom: 10,
             maxZoom: 20,
@@ -24,13 +23,27 @@ const MapView = () => {
             // mapDataControl: false,
             // scaleControl: false,
         };
-        map = new naver.maps.Map(mapElement.current, mapOptions);
-        setNewMap(map);
-    }, [mapElement]);
+        naverMap = new naver.maps.Map(mapRef.current, mapOptions);
+        setMarker();
+    }, [mapRef]);
 
-    return (
-            <div id="naver-map" ref={mapElement}></div>
-    )
+    const setMarker = () => {
+        const position = new naver.maps.LatLng(37.511337, 127.012084);
+        let markerOptions: naver.maps.MarkerOptions = {
+            position: position,
+            map: naverMap,
+            icon: {
+                content: '<img alt="marker" class="marker" src="img/dog_marker.png"/>',
+                // url: "img/dog_marker.png",
+                size: new naver.maps.Size(10, 10),
+                origin: new naver.maps.Point(0, 0),
+                // anchor: new naver.maps.Point(11, 35)
+            }
+        };
+        new naver.maps.Marker(markerOptions);
+    }
+
+    return (<div id="naver-map" ref={mapRef}></div>)
 }
 
 export default MapView;
