@@ -7,3 +7,32 @@
     width: 25px;
     height:25px;
 }
+
+.marker.dog {
+    background-image: url("../images/marker/dog_marker.svg");
+    background-size:cover;
+}
+.marker.bar {
+    background-image: url("../images/marker/bar_marker.svg");
+    background-size:cover;
+}
+.marker.bakery {
+    background-image: url("../images/marker/bakery_marker.svg");
+    background-size:cover;
+}
+.marker.cafe {
+    background-image: url("../images/marker/cafe_marker.svg");
+    background-size:cover;
+}
+.marker.museum {
+    background-image: url("../images/marker/museum_marker.svg");
+    background-size:cover;
+}
+.marker.restaurant {
+    background-image: url("../images/marker/restaurant_marker.svg");
+    background-size:cover;
+}
+.marker.restaurant.active {
+     background-image: url("../images/marker/restaurant_active_marker.svg");
+     background-size:cover;
+ }

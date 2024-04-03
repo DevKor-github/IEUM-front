@@ -37,7 +37,7 @@ const MapView = () => {
     },
     {
       position: new naver.maps.LatLng(37.517459, 127.02078),
-      icon: MarkerIcon.BAR,
+      icon: MarkerIcon.RESTAUTANT,
       spotContent: {
         name: '바바',
         category: '양식',
@@ -69,7 +69,8 @@ const MapView = () => {
 
   const setMarker = () => {
     markerList.forEach((marker: MarkerType, idx: number) => {
-      const markerHtml = `<img alt="marker" class="marker" src="img/${marker.icon}"/>`;
+      // const markerHtml = `<img alt="marker" class="marker" src="img/${marker.icon}"/>`;
+      const markerHtml = `<div class="marker ${marker.icon}" id="marker_${idx}"/>`;
       let markerOptions: naver.maps.MarkerOptions = {
         position: marker.position,
         map: naverMap,
@@ -80,7 +81,11 @@ const MapView = () => {
         },
       };
       const newMarker = new naver.maps.Marker(markerOptions);
-      naver.maps.Event.addListener(newMarker, 'click', () => {
+      naver.maps.Event.addListener(newMarker, 'click', (e) => {
+        e.originalEvent.target.className =
+          e.originalEvent.target.className.includes('active')
+            ? `marker ${marker.icon}`
+            : `marker ${marker.icon} active`;
         handleMarker(idx);
       });
     });

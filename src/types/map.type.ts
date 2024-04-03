@@ -1,10 +1,10 @@
 export enum MarkerIcon {
-  BAKERY = 'bakery_marker.png',
-  BAR = 'bar_marker.png',
-  CAFE = 'cafe_marker.png',
-  DOG = 'dog_marker.png',
-  FOOD = 'food_marker.png',
-  MUSEUM = 'museum_marker.png',
+  BAKERY = 'bakery',
+  BAR = 'bar',
+  CAFE = 'cafe',
+  DOG = 'dog',
+  RESTAUTANT = 'restaurant',
+  MUSEUM = 'museum',
 }
 
 export interface MarkerType {
