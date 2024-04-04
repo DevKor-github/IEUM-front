@@ -7,7 +7,7 @@ export enum MarkerIcon {
   MUSEUM = 'museum',
 }
 
-export interface MarkerType {
+export interface SpotType {
   // id: number;
   position: naver.maps.LatLng;
   icon: MarkerIcon;

@@ -1,10 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../../assets/styles/map.css';
-import { MarkerIcon, MarkerType } from '../../types/map.type';
+import { MarkerIcon, SpotType } from '../../types/map.type';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { getSpotListProps, setSpotList } from '../../redux/spotSlice';
 
 const MapView = () => {
+  const dispatch = useAppDispatch();
+  const spotState = useAppSelector(getSpotListProps);
+
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const markerList: MarkerType[] = [
+  const [naverMap, setNaverMap] = useState<naver.maps.Map>();
+
+  const markerList: SpotType[] = [
     {
       position: new naver.maps.LatLng(37.511337, 127.012084),
       icon: MarkerIcon.DOG,
@@ -51,8 +58,11 @@ const MapView = () => {
       },
     },
   ];
+  useEffect(() => {
+    dispatch(setSpotList({ spotList: markerList }));
+  }, []);
 
-  let naverMap: naver.maps.Map;
+  // let naverMap: naver.maps.Map;
   useEffect(() => {
     if (!mapRef.current) return;
     const center = new naver.maps.LatLng(37.511337, 127.012084);
@@ -63,12 +73,17 @@ const MapView = () => {
       maxZoom: 20,
       zoomControl: false,
     };
-    naverMap = new naver.maps.Map(mapRef.current, mapOptions);
-    setMarker();
+    const map = new naver.maps.Map(mapRef.current, mapOptions);
+    setNaverMap(map);
   }, [mapRef]);
 
+  useEffect(() => {
+    if (naverMap && spotState.spotList.length) setMarker();
+  }, [spotState, naverMap]);
+
   const setMarker = () => {
-    markerList.forEach((marker: MarkerType, idx: number) => {
+    console.log(spotState);
+    spotState.spotList.forEach((marker: SpotType, idx: number) => {
       // const markerHtml = `<img alt="marker" class="marker" src="img/${marker.icon}"/>`;
       const markerHtml = `<div class="marker ${marker.icon}" id="marker_${idx}"/>`;
       let markerOptions: naver.maps.MarkerOptions = {
