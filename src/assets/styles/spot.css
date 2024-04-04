@@ -1,0 +1,106 @@
+.spot-container .category{
+    display: flex;
+    align-items: center;
+}
+
+.spot-container .category .category-button{
+    height: 50px;
+    width: 74px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.spot-container .category .category-button span{
+    color: grey;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.spot-container .category .dropdown{
+    height: 50px;
+    width: 100px;
+    background-color: transparent;
+    border-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spot-container .category .dropdown span{
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 15px
+}
+
+.spot-container .category .dropdown button{
+    height: 50px;
+    background-color: transparent;
+    border-color: transparent;
+    justify-content: center;
+    margin-left: 1px;
+}
+
+.spot-container .category .dropdown button img{
+    height: 7px;
+    width: 14px;
+}
+
+.spot-container hr {
+    height: 1px !important;
+}
+
+.spot-container .spot-list {
+    width: 435px;
+    height: 535px;
+    overflow-y: scroll;
+}
+
+.spot-container .spot-list .spot-info{
+    height: 370px;
+    padding: 23px;
+}
+
+.spot-container .spot-list .spot-info .image-container{
+    display: flex;
+    margin-top: 43px;
+    margin-bottom: 24px;
+}
+
+.spot-container .spot-list .spot-info .image-container img{
+    margin-right: 4px;
+}
+
+
+.spot-container .spot-list .spot-info .spot-name{
+    font-weight: 500;
+    font-size: 21px;
+}
+
+.spot-container .spot-list .spot-info .spot-type{
+    margin-left: 10px;
+    color: grey;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.spot-container .spot-list .spot-info .address{
+    color: grey;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.spot-container .spot-list .spot-info .content{
+    margin-top: 15px;
+}
+
+.spot-container .spot-list .spot-info .content p{
+    white-space: pre-line;
+    font-weight: 400;
+    font-size: 12px;
+
+}
+
+.spot-container .spot-list .spot-info .content .hashtag{
+    font-weight: 500;
+    font-size: 13px;
+}
