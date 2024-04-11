@@ -1,0 +1,41 @@
+.full-image-container{
+    position: relative;
+}
+
+.full-image-container .image-scroll{
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+}
+.full-image-container .image-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.full-image-container .image{
+    min-width: 420px;
+    height: 350px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    scroll-snap-align: start;
+}
+
+.full-image-container .scroll-bar-list{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    gap: 10px;
+}
+.full-image-container .scroll-bar-list div{
+    width: 52px;
+    height: 3px;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+.full-image-container .scroll-bar-list div.active {
+    background: #FF5A61;
+}
