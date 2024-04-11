@@ -30,7 +30,7 @@ const SpotDetailInfo = (props: SpotDetailInfoPropsType) => {
             <button>
               <img src={InstaIcon} alt="share_button" />
             </button>
-            <span>공유</span>
+            <span>바로가기</span>
           </div>
         </div>
 
