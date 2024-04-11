@@ -1,21 +1,17 @@
 import React from 'react';
 import Area_Select from '../../assets/images/area_select.svg';
-import Sample_Image_1 from '../../assets/images/sample_image_1.svg';
-import Sample_Image_2 from '../../assets/images/sample_image_2.svg';
 import '../../assets/styles/spot.css';
-import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { getSpotListProps } from '../../redux/spotSlice';
+import { useAppSelector } from '../../redux/hook';
+import { getSelectedSpotProps, getSpotListProps } from '../../redux/spotSlice';
 import SpotInfo from './SpotInfo';
-import spotInfo from './SpotInfo';
+import SpotDetailInfo from './SpotDetailInfo';
 
 const SpotList = () => {
-  const dispatch = useAppDispatch();
-  const spotState = useAppSelector(getSpotListProps);
+  const spotListState = useAppSelector(getSpotListProps);
+  const selectedSpotState = useAppSelector(getSelectedSpotProps);
 
   const setSpotInfo = () => {
-    return (
-      <>{spotState.spotList?.map((spot) => <SpotInfo spotType={spot} />)}</>
-    );
+    return <>{spotListState?.map((spot) => <SpotInfo spotType={spot} />)}</>;
   };
 
   return (
@@ -36,7 +32,13 @@ const SpotList = () => {
       </div>
       <hr />
 
-      <div className="spot-list">{setSpotInfo()}</div>
+      {!selectedSpotState ? (
+        <div className="spot-list">{setSpotInfo()}</div>
+      ) : (
+        <div className="spot-list">
+          <SpotDetailInfo spotContent={selectedSpotState} />
+        </div>
+      )}
     </div>
   );
 };

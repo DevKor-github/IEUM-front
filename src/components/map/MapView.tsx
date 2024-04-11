@@ -2,14 +2,20 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../../assets/styles/map.css';
 import { MarkerIcon, SpotType } from '../../types/map.type';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
-import { getSpotListProps, setSpotList } from '../../redux/spotSlice';
+import {
+  getSpotListProps,
+  setSelectedSpot,
+  setSpotList,
+} from '../../redux/spotSlice';
 
 const MapView = () => {
   const dispatch = useAppDispatch();
-  const spotState = useAppSelector(getSpotListProps);
+  const spotListState = useAppSelector(getSpotListProps);
 
   const mapRef = useRef<HTMLDivElement | null>(null);
+
   const [naverMap, setNaverMap] = useState<naver.maps.Map>();
+  const [selectedSpotIdx, setSelectedSpotIdx] = useState<number>(-1);
 
   const markerList: SpotType[] = [
     {
@@ -58,8 +64,9 @@ const MapView = () => {
       },
     },
   ];
+
   useEffect(() => {
-    dispatch(setSpotList({ spotList: markerList }));
+    dispatch(setSpotList(markerList));
   }, []);
 
   // let naverMap: naver.maps.Map;
@@ -78,14 +85,12 @@ const MapView = () => {
   }, [mapRef]);
 
   useEffect(() => {
-    if (naverMap && spotState.spotList.length) setMarker();
-  }, [spotState, naverMap]);
+    if (naverMap && spotListState.length) setMarker();
+  }, [spotListState, naverMap]);
 
   const setMarker = () => {
-    console.log(spotState);
-    spotState.spotList.forEach((marker: SpotType, idx: number) => {
-      // const markerHtml = `<img alt="marker" class="marker" src="img/${marker.icon}"/>`;
-      const markerHtml = `<div class="marker ${marker.icon}" id="marker_${idx}"/>`;
+    spotListState.forEach((marker: SpotType, idx: number) => {
+      const markerHtml = `<div class="marker ${marker.icon} " id="marker_${idx}"/>`;
       let markerOptions: naver.maps.MarkerOptions = {
         position: marker.position,
         map: naverMap,
@@ -105,8 +110,27 @@ const MapView = () => {
       });
     });
   };
+
+  //다른 active marker 없애기
+  const resetMarker = (idx: number) => {
+    const marker = document.getElementById(`marker_${idx}`);
+    if (!marker) return;
+    marker.className = `marker ${markerList[idx].icon}`;
+  };
+
   const handleMarker = (idx: number) => {
-    console.log(markerList[idx].spotContent);
+    setSelectedSpotIdx((prev) => {
+      resetMarker(prev);
+
+      // 선택해제
+      if (prev === idx) {
+        dispatch(setSelectedSpot(null));
+        return -1;
+      } else {
+        dispatch(setSelectedSpot(markerList[idx].spotContent));
+        return idx;
+      }
+    });
   };
 
   return <div id="naver-map" ref={mapRef}></div>;
