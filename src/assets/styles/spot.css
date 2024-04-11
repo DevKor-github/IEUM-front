@@ -133,8 +133,11 @@
 }
 
 .spot-container .spot-list .spot-info .share-insta span{
-    font-weight: 500;
-    font-size: 13px;
-    color: grey;
+    font-size: 8px;
+    font-weight: 600;
+    line-height: 9.6px;
+    text-align: left;
+    color: #12121259;
+    text-decoration: underline;
     justify-self: center;
 }
