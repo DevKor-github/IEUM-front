@@ -1,0 +1,30 @@
+.container {
+    position: absolute;
+    top: 50px;
+}
+
+.container .row {
+    display: flex;
+    align-items: center;
+}
+
+.container .row .category-button {
+    width: 145px;
+    height: 43px;
+    background-color: #f9f9f9;
+    border-color: #f0f0f3;
+    border-width: 0.1px
+}
+
+.container .row .category-button span{
+    color: grey;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.container .marker-line {
+    width: 100px;
+    height: 2px;
+    background-color: #ff5a61;
+    border-color: transparent;
+}
