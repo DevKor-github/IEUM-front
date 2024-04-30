@@ -18,9 +18,9 @@ const SpotInfo = (props: SpotInfoPropsType) => {
           <span className="spot-name">{spotContent.name}</span>
           <span className="spot-type">{spotContent.category}</span>
         </div>
-        <span className="address">{spotContent.address}</span>
+        <span className="address">{spotContent.shortAddress}</span>
         <div className="content">
-          <span className="hashtag">{spotContent.category}</span>
+          <span className="hashtag">{spotContent.hashtag}</span>
           <p>{spotContent.content}</p>
         </div>
       </div>
