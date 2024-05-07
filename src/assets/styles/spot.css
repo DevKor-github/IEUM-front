@@ -52,7 +52,13 @@
 .spot-container .spot-list {
     width: 435px;
     height: 535px;
+    overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.insta-embed-iframe{
+    width: 100%;
+    height: 750px;
 }
 
 .spot-container .spot-list .spot-info{
