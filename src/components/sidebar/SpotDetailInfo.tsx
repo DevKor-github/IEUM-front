@@ -33,7 +33,7 @@ const SpotDetailInfo = (props: SpotDetailInfoPropsType) => {
       {/*  height="100%"*/}
       {/*  src="https://www.instagram.com/p/BdJRABkDbXU/embed/"*/}
       {/*></iframe>*/}
-
+      
       <div className="spot-info">
         <div style={{ display: 'flex' }}>
           <div>

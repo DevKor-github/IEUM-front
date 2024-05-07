@@ -1,4 +1,8 @@
 .spot-container .category{
+    position: relative;
+}
+
+.spot-container .category .header{
     display: flex;
     align-items: center;
 }
@@ -24,6 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .spot-container .category .dropdown span{
@@ -43,6 +48,15 @@
 .spot-container .category .dropdown button img{
     height: 7px;
     width: 14px;
+}
+
+.spot-container .category .dropdownmenu {
+    height: 135px;
+    width: 483px;
+    top: 50px;
+    left: 0px;
+    position: absolute;
+    background-color: #f9f9f9;
 }
 
 .spot-container hr {
@@ -70,6 +84,7 @@
     display: flex;
     margin-top: 43px;
     margin-bottom: 24px;
+    overflow-x: scroll;
 }
 
 .spot-container .spot-list .spot-info .image-container img{

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Area_Select from '../../assets/images/area_select.svg';
 import '../../assets/styles/spot.css';
 import { useAppSelector } from '../../redux/hook';
@@ -14,21 +14,34 @@ const SpotList = () => {
     return <>{spotListState?.map((spot) => <SpotInfo spotType={spot} />)}</>;
   };
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setSpots((prevSpots: SpotType[]) => [...prevSpots, ...spotListState]);
+    setLoading(false);
+  }, [spotListState]);
+
   return (
     <div className="spot-container">
       <div className="category">
-        <div className="dropdown">
-          <span>지역 </span>
-          <button>
-            <img src={Area_Select} alt="" />
+        <div className="header">
+          <div className="dropdown">
+            <span>지역 </span>
+            <button onClick={() => setView(!view)}>
+              <img src={Area_Select} alt="" />
+            </button>
+          </div>
+          <button className="category-button">
+            <span>서울</span>
+          </button>
+          <button className="category-button">
+            <span>부산</span>
           </button>
         </div>
-        <button className="category-button">
-          <span>서울</span>
-        </button>
-        <button className="category-button">
-          <span>부산</span>
-        </button>
+        {view && <Dropdown />}
       </div>
       <hr />
 
