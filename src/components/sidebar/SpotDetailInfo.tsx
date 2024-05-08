@@ -21,13 +21,13 @@ const SpotDetailInfo = (props: SpotDetailInfoPropsType) => {
 
   return (
     <>
-      <iframe
-        className="insta-embed-iframe"
-        id="instagram-iframe"
-        srcDoc={instaContent}
-      ></iframe>
+      {/*<iframe*/}
+      {/*  className="insta-embed-iframe"*/}
+      {/*  id="instagram-iframe"*/}
+      {/*  srcDoc={instaContent}*/}
+      {/*></iframe>*/}
 
-      {/*<div dangerouslySetInnerHTML={{ __html: code }}></div>*/}
+      <div dangerouslySetInnerHTML={{ __html: code }}></div>
       {/*<iframe*/}
       {/*  width="100%"*/}
       {/*  height="100%"*/}
