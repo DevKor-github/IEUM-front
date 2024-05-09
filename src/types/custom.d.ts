@@ -1,8 +1,7 @@
-declare module '*.svg' {
-    const content: any;
-    export default content;
-  }
+export {};
 
 declare global {
-    // interface Window { HOME_PATH: any }
+  interface Window {
+    instgrm: any;
+  }
 }
