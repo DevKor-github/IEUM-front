@@ -1,27 +1,12 @@
-.bottom-sheet-background {
-    position: absolute;
-    /*top: 0;*/
-     bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50lvh;
-    background: white;
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
-    border-radius: 24px 24px 0 0;
-    padding: 12px 0 24px 0;
-    will-change: transform;
-    z-index: 200;
-}
-
 .bottom-sheet-background .header{
-    height: 50px;
+    height: 40px;
     cursor: grab;
     user-select: none;
 }
 
 .bottom-sheet-background .header .handle-bar{
-    width: 58px;
-    height: 8px;
+    width: 55px;
+    height: 4px;
     background: #dfdfdf;
     margin: 0 auto;
 }
@@ -34,4 +19,91 @@
 
 .bottom-sheet-background .content{
     width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    display: grid;
+    align-items: center;
 }
+
+.bottom-sheet-background .content .spot-list {
+    width: 100%;
+    height: 65lvh;
+}
+
+.bottom-sheet-background .spot-list .spot-info {
+    margin-top: 130px;
+}
+
+.bottom-sheet-background .spot-list .spot-info .spot-name{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.bottom-sheet-background .spot-list .spot-info .spot-type{
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 10px;
+    color: grey;
+}
+
+.bottom-sheet-background .spot-list .spot-info .address{
+    font-size: 13px;
+    font-weight: 400;
+    color: grey;
+}
+
+.bottom-sheet-background .spot-list .spot-info .content{
+    width: 90%;
+    margin-bottom: 20px;
+}
+
+.bottom-sheet-background .spot-list .spot-info .content .hashtag{
+    font-size: 13.5px;
+    font-weight: 500;
+}
+
+.bottom-sheet-background .spot-list .spot-info .content p{
+    font-size: 12.5px;
+    font-weight: 400;
+}
+
+.bottom-sheet-background .spot-list .spot-info .share-insta{
+    display: grid;
+    margin-left: 270px;
+}
+
+.bottom-sheet-background .spot-list .spot-info .share-insta button{
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.bottom-sheet-background .spot-list .spot-info .share-insta span{
+    font-size: 8px;
+    font-weight: 600;
+    line-height: 9.6px;
+    text-align: left;
+    color: #12121259;
+    text-decoration: underline;
+    justify-self: center;
+}
+
+.bottom-sheet-background .spot-list .spot-info .meta-info div{
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+}
+
+.bottom-sheet-background .spot-list .spot-info .meta-info div img{
+    margin-right: 10px;
+}
+
+.bottom-sheet-background .spot-list .imbed {
+    width: 90lvw;
+    height: 400px;
+}
+
+
+

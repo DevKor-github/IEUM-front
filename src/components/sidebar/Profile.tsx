@@ -2,11 +2,21 @@ import React from 'react';
 import Blank_Profile from '../../assets/images/blank_profile.svg';
 import Temp_Logo from '../../assets/images/temp_logo.svg';
 import Share_Icon from '../../assets/images/share_icon.svg';
-import Locaiton_Num_Icon from '../../assets/images/location_num_icon.svg';
+import Location_Num_Icon from '../../assets/images/location_num_icon.svg';
 import '../../assets/styles/profile.css';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 const Profile = () => {
   const params = useParams();
+  const location = useLocation();
+  const baseUrl = "localhost:3000"; // 추후 수정
+  const handleCopyClipBoard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("클립보드에 링크가 복사되었어요.");
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="profile-box">
@@ -22,12 +32,12 @@ const Profile = () => {
           </div>
 
           <div className="spot-info">
-            <img src={Locaiton_Num_Icon} alt="spot-icon" />
+            <img src={Location_Num_Icon} alt="spot-icon" />
             <span>31개의 장소</span>
           </div>
         </div>
         <div className="share">
-          <button>
+          <button onClick={() => handleCopyClipBoard(`${baseUrl}${location.pathname}`)}>
             <img src={Share_Icon} alt="share_button" />
           </button>
           <span>공유</span>
