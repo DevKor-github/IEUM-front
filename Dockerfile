@@ -10,4 +10,4 @@ RUN yarn run build
 
 EXPOSE 3031
 
-ENTRYPOINT yarn run start:prod
+ENTRYPOINT yarn start
