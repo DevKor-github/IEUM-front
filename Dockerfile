@@ -1,15 +1,11 @@
-FROM node:12.1-alpine
+FROM node:16-alpine
 
-WORKDIR /src
+WORKDIR /app
 
-COPY package.json .
+ADD . /app/
 
-RUN yarn
-# or
-# RUN npm install
+RUN yarn install
 
-COPY . .
+RUN yarn run build
 
-EXPOSE 3000
-
-CMD [ "yarn", "start" ]
+ENTRYPOINT yarn run start:prod
