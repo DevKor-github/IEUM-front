@@ -8,6 +8,6 @@ RUN yarn install
 
 RUN yarn run build
 
-EXPOSE 3031
+EXPOSE 3000
 
 ENTRYPOINT yarn start
