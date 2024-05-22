@@ -8,15 +8,15 @@ import { useLocation, useParams } from 'react-router-dom';
 const MobileProfile = () => {
   const params = useParams();
   const location = useLocation();
-  const baseUrl = "localhost:3000"; // 추후 수정
+  const baseUrl = 'https://ieum.devkor.club';
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      alert("클립보드에 링크가 복사되었어요.");
+      alert('클립보드에 링크가 복사되었어요.');
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <>
@@ -37,7 +37,10 @@ const MobileProfile = () => {
 
         <div className="share">
           <button
-          onClick={() => handleCopyClipBoard(`${baseUrl}${location.pathname}`)}>
+            onClick={() =>
+              handleCopyClipBoard(`${baseUrl}${location.pathname}`)
+            }
+          >
             <img src={Share_Icon} alt="share_button" className="share-icon" />
           </button>
           <span>공유</span>
