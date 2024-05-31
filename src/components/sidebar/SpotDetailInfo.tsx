@@ -24,7 +24,7 @@ const SpotDetailInfo = (props: SpotDetailInfoPropsType) => {
 
   useEffect(() => {
     getSpotInfo();
-  }, []);
+  }, [selectedId]);
 
   const getSpotInfo = async () => {
     const spot = await getInstaCollectionDetail(

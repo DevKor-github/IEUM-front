@@ -8,13 +8,11 @@ interface SpotInfoPropsType {
 const SpotInfo = (props: SpotInfoPropsType) => {
   const { spotContent, position, icon } = props.spotType;
   const [instaContent, setInstaContent] = useState<string>('');
+
   useEffect(() => {
     if (window?.instgrm) {
       window.instgrm.Embeds.process();
     }
-  }, []);
-
-  useEffect(() => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(spotContent.embeddedTag, 'text/html');
     setInstaContent(doc.documentElement.textContent || '');
