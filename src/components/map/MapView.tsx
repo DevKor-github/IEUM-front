@@ -18,6 +18,7 @@ const MapView = () => {
 
   const [naverMap, setNaverMap] = useState<naver.maps.Map>();
   const [selectedSpotIdx, setSelectedSpotIdx] = useState<number>(-1);
+  const selectedMarker = useRef<naver.maps.Marker | null>(null);
   const [naverMarkerList, setNaverMarkerList] = useState<
     Map<number, naver.maps.Marker>
   >(new Map<number, naver.maps.Marker>());
@@ -50,9 +51,19 @@ const MapView = () => {
     if (naverMap && markerListState.length) setMarker();
   }, [markerListState, naverMap]);
 
+  const createMarkerHtml = (
+    icon: string,
+    id: number,
+    isActive: boolean = false,
+  ) => {
+    return `<div class="marker ${icon} ${isActive ? 'active' : ''}" id="marker_${id}"/>`;
+  };
   const setMarker = () => {
     markerListState.forEach((marker: SpotType) => {
-      const markerHtml = `<div class="marker ${marker.icon} " id="marker_${marker.spotContent.instaGuestCollectionId}"/>`;
+      const markerHtml = createMarkerHtml(
+        marker.icon,
+        marker.spotContent.instaGuestCollectionId,
+      );
       let markerOptions: naver.maps.MarkerOptions = {
         position: marker.position,
         map: naverMap,
@@ -63,62 +74,44 @@ const MapView = () => {
         },
       };
       const newMarker = new naver.maps.Marker(markerOptions);
-      setNaverMarkerList((prev) =>
-        prev.set(marker.spotContent.instaGuestCollectionId, newMarker),
-      );
 
       naver.maps.Event.addListener(newMarker, 'click', (e) => {
-        e.originalEvent.target.className =
-          e.originalEvent.target.className.includes('active')
-            ? `marker ${marker.icon}`
-            : `marker ${marker.icon} active`;
+        if (!selectedMarker.current || selectedMarker.current !== newMarker) {
+          if (!!selectedMarker.current) {
+            selectedMarker.current?.setIcon({
+              content: markerHtml,
+              size: new naver.maps.Size(10, 10),
+              origin: new naver.maps.Point(0, 0),
+            });
+          }
+          const highlightMarkerHtml = createMarkerHtml(
+            marker.icon,
+            marker.spotContent.instaGuestCollectionId,
+            true,
+          );
+          newMarker.setIcon({
+            content: highlightMarkerHtml,
+            size: new naver.maps.Size(10, 10),
+            origin: new naver.maps.Point(0, 0),
+          });
+
+          selectedMarker.current = newMarker;
+        } else {
+          // 같은거 클릭
+          selectedMarker.current?.setIcon({
+            content: markerHtml,
+            size: new naver.maps.Size(10, 10),
+            origin: new naver.maps.Point(0, 0),
+          });
+          selectedMarker.current = null;
+        }
         handleMarker(marker.spotContent.instaGuestCollectionId);
       });
     });
   };
 
-  //다른 active marker 없애기
-  const resetMarker = (idx: number) => {
-    console.log('reset');
-    const spot: SpotType | undefined = markerListState.find(
-      (spot) => spot.spotContent.instaGuestCollectionId === idx,
-    );
-    console.log('idx', idx);
-    console.log('spot', spot);
-    console.log('naverMarker', naverMarkerList.get(idx));
-
-    if (!spot) return;
-    const markerHtml = `<div class="marker ${spot.icon} " id="marker_${spot.spotContent.instaGuestCollectionId}"/>`;
-    let markerOptions: naver.maps.MarkerOptions = {
-      position: spot.position,
-      map: naverMap,
-      icon: {
-        content: markerHtml,
-        size: new naver.maps.Size(10, 10),
-        origin: new naver.maps.Point(0, 0),
-      },
-    };
-    const marker = naverMarkerList.get(idx);
-    if (!marker) return;
-    marker.getElement().className = `marker ${spot.icon}`;
-    marker.draw();
-    // naverMarkerList.get(idx)?.setIcon({
-    //   content: markerHtml,
-    //   size: new naver.maps.Size(10, 10),
-    //   origin: new naver.maps.Point(0, 0),
-    // });
-
-    // const marker = document.getElementById(`marker_${idx}`);
-    // console.log('marker', marker);
-    // if (!marker) return;
-    // marker.className = `marker ${spot?.icon}`;
-    // console.log('marker', marker);
-  };
-
   const handleMarker = (idx: number) => {
     setSelectedSpotIdx((prev) => {
-      resetMarker(prev);
-
       // 선택해제
       if (prev === idx) {
         dispatch(setSelectedSpotId(null));
