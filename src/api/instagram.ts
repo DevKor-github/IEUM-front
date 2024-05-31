@@ -1,7 +1,13 @@
 import { API } from '../util/api';
 import { MarkerIcon, SpotContent, SpotType } from '../types/map.type';
-import { setSpotList } from '../redux/spotSlice';
-import { useAppDispatch } from '../redux/hook';
+
+const getCategoryType = (category: string): MarkerIcon => {
+  const values = Object.values(MarkerIcon);
+  if (values.includes(category as MarkerIcon)) {
+    return category as MarkerIcon;
+  }
+  return MarkerIcon.OTHERS;
+};
 
 export const getUserMarker = async (instaId: string) => {
   // const res = await API.get(`/instagram/markers/${params?.userId}`);
@@ -25,10 +31,10 @@ export const getUserMarker = async (instaId: string) => {
       openHours: item?.openHours,
       phoneNumber: item?.phoneNumber,
     };
-
+    console.log(getCategoryType(item?.representativeCategory));
     return {
       position: new naver.maps.LatLng(content.latitude, content.longitude),
-      icon: MarkerIcon.RESTAUTANT,
+      icon: getCategoryType(item?.representativeCategory),
       spotContent: content,
     };
   });
@@ -60,7 +66,7 @@ export const getUserCollectionList = async (instaId: string) => {
 
     return {
       position: new naver.maps.LatLng(content.latitude, content.longitude),
-      icon: MarkerIcon.RESTAUTANT,
+      icon: getCategoryType(item?.representativeCategory),
       spotContent: content,
     };
   });

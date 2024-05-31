@@ -1,10 +1,13 @@
 export enum MarkerIcon {
-  BAKERY = 'bakery',
-  BAR = 'bar',
-  CAFE = 'cafe',
-  DOG = 'dog',
-  RESTAUTANT = 'restaurant',
-  MUSEUM = 'museum',
+  BAKERY = 'Bakery',
+  BAR = 'Bar',
+  CAFE = 'Cafe',
+  DOG = 'Dog',
+  RESTAURANT = 'Restaurant',
+  CULTURE = 'Culture',
+  STAY = 'Stay',
+  SHOPPING = 'Shopping',
+  OTHERS = 'Others',
 }
 
 export interface SpotType {
