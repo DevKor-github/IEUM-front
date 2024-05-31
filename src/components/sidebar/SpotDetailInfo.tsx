@@ -76,18 +76,24 @@ const SpotDetailInfo = (props: SpotDetailInfoPropsType) => {
         </div>
 
         <div className="meta-info">
-          <div>
-            <img src={MetaIcon} alt="address" />
-            <span>{address}</span>
-          </div>
-          <div>
-            <img src={MetaIcon} alt="office-hour" />
-            <span>{openHours}</span>
-          </div>
-          <div>
-            <img src={MetaIcon} alt="contact-number" />
-            <span>{phoneNumber}</span>
-          </div>
+          {address && (
+            <div>
+              <img src={MetaIcon} alt="address" />
+              <span>{address}</span>
+            </div>
+          )}
+          {openHours && (
+            <div>
+              <img src={MetaIcon} alt="office-hour" />
+              <span>{openHours}</span>
+            </div>
+          )}
+          {phoneNumber && (
+            <div>
+              <img src={MetaIcon} alt="contact-number" />
+              <span>{phoneNumber}</span>
+            </div>
+          )}
         </div>
       </div>
       <hr />
