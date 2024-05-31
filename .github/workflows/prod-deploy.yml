@@ -1,10 +1,10 @@
 name: docker-build
 
 on:
-  push:
-    branches: ['main']
-#    tags:
-#      - release-**
+#  push:
+#    branches: ['main']
+    tags:
+      - release-**
 
 env:
   DOCKER_IMAGE: ghcr.io/min010324/ieum-front
