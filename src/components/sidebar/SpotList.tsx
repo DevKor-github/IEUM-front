@@ -69,23 +69,23 @@ const SpotList = () => {
 
   return (
     <div className="spot-container">
-      <div className="category">
-        <div className="header">
-          <div className="dropdown">
-            <span>지역 </span>
-            <button onClick={() => setView(!view)}>
-              <img src={Area_Select} alt="" />
-            </button>
-          </div>
-          <button className="category-button">
-            <span>서울</span>
-          </button>
-          <button className="category-button">
-            <span>부산</span>
-          </button>
-        </div>
-        {view && <Dropdown />}
-      </div>
+      {/*<div className="category">*/}
+      {/*  <div className="header">*/}
+      {/*    <div className="dropdown">*/}
+      {/*      <span>지역 </span>*/}
+      {/*      <button onClick={() => setView(!view)}>*/}
+      {/*        <img src={Area_Select} alt="" />*/}
+      {/*      </button>*/}
+      {/*    </div>*/}
+      {/*    <button className="category-button">*/}
+      {/*      <span>서울</span>*/}
+      {/*    </button>*/}
+      {/*    <button className="category-button">*/}
+      {/*      <span>부산</span>*/}
+      {/*    </button>*/}
+      {/*  </div>*/}
+      {/*  {view && <Dropdown />}*/}
+      {/*</div>*/}
       <hr />
 
       {!selectedSpotIdState ? (
