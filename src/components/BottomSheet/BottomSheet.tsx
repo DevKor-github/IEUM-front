@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { motion } from 'framer-motion';
 import '../../assets/styles/bottomsheet.css';
-import Area_Select from '../../assets/images/area_select.svg';
 import { useAppSelector } from '../../redux/hook';
-import { getSelectedSpotProps, getSpotListProps } from '../../redux/spotSlice';
+import {
+  getSelectedSpotIdProps,
+  getSpotListProps,
+} from '../../redux/spotSlice';
 import MobileSpotInfo from '../sidebar/MobileSpotInfo';
 import MobileSpotDetailInfo from '../sidebar/MobileSpotDetailInfo';
 import { SpotType } from '../../types/map.type';
@@ -31,7 +33,7 @@ const BottomSheet = () => {
   const [spots, setSpots] = useState<SpotType[]>([]);
 
   const spotListState = useAppSelector(getSpotListProps);
-  const selectedSpotState = useAppSelector(getSelectedSpotProps);
+  const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
 
   useEffect(() => {
     if (!loading) {
@@ -75,7 +77,7 @@ const BottomSheet = () => {
 
         <div className="wrapper">
           <div className="content">
-            {!selectedSpotState ? (
+            {!selectedSpotIdState ? (
               <div className="spot-list">
                 {spots.map((spot, idx) => (
                   <MobileSpotInfo key={idx} spotType={spot} />
@@ -84,7 +86,7 @@ const BottomSheet = () => {
               </div>
             ) : (
               <div className="spot-list">
-                <MobileSpotDetailInfo spotContent={selectedSpotState} />
+                <MobileSpotDetailInfo selectedId={selectedSpotIdState} />
               </div>
             )}
           </div>

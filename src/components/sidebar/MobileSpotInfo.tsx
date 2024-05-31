@@ -18,27 +18,20 @@ const MobileSpotInfo = (props: SpotInfoPropsType) => {
   }, []);
   return (
     <>
-      {/*<iframe*/}
-      {/*  className="insta-embed-iframe"*/}
-      {/*  id="instagram-iframe"*/}
-      {/*  srcDoc={instaContent}*/}
-      {/*></iframe>*/}
-      <div className="imbed" dangerouslySetInnerHTML={{ __html: instaContent }}></div>
+      <div
+        className="imbed"
+        dangerouslySetInnerHTML={{ __html: instaContent }}
+      ></div>
 
       <div className="spot-info">
-        {/*<div className="image-container">*/}
-        {/*  <img src={Sample_Image_1} alt="" />*/}
-        {/*  <img src={Sample_Image_2} alt="" />*/}
-        {/*</div>*/}
-
         <div>
-          <span className="spot-name">{spotContent.name}</span>
+          <span className="spot-name">{spotContent.placeName}</span>
           <span className="spot-type">{spotContent.category}</span>
         </div>
-        <span className="address">{spotContent.shortAddress}</span>
+        <span className="address">{spotContent.address}</span>
         <div className="content">
-          <span className="hashtag">{spotContent.hashtag}</span>
-          <p>{spotContent.content}</p>
+          <span className="hashtag">{spotContent.tags?.join(',')}</span>
+          <p>{spotContent.instagramDescription}</p>
         </div>
       </div>
     </>

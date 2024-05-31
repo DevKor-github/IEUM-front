@@ -1,15 +1,17 @@
 import { createAppSlice } from './createAppSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { SpotContent, SpotType } from '../types/map.type';
+import { SpotType } from '../types/map.type';
 
 export interface SpotSliceState {
   spotList: SpotType[];
-  selectedSpot: SpotContent | null;
+  markerList: SpotType[];
+  selectedSpotId: number | null;
 }
 
 const initialState: SpotSliceState = {
   spotList: [],
-  selectedSpot: null,
+  markerList: [],
+  selectedSpotId: null,
 };
 
 export const spotSlice = createAppSlice({
@@ -19,17 +21,25 @@ export const spotSlice = createAppSlice({
     setSpotList: create.reducer((state, action: PayloadAction<SpotType[]>) => {
       state.spotList = action.payload;
     }),
-    setSelectedSpot: create.reducer(
-      (state, action: PayloadAction<SpotContent | null>) => {
-        state.selectedSpot = action.payload;
+    setMarkerList: create.reducer(
+      (state, action: PayloadAction<SpotType[]>) => {
+        state.markerList = action.payload;
+      },
+    ),
+    setSelectedSpotId: create.reducer(
+      (state, action: PayloadAction<number | null>) => {
+        state.selectedSpotId = action.payload;
       },
     ),
   }),
   selectors: {
     getSpotListProps: (spotState) => spotState.spotList,
-    getSelectedSpotProps: (spotState) => spotState.selectedSpot,
+    getMarkerListProps: (spotState) => spotState.markerList,
+    getSelectedSpotIdProps: (spotState) => spotState.selectedSpotId,
   },
 });
 
-export const { setSpotList, setSelectedSpot } = spotSlice.actions;
-export const { getSpotListProps, getSelectedSpotProps } = spotSlice.selectors;
+export const { setSpotList, setMarkerList, setSelectedSpotId } =
+  spotSlice.actions;
+export const { getSpotListProps, getMarkerListProps, getSelectedSpotIdProps } =
+  spotSlice.selectors;

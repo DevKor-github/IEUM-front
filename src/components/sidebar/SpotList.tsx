@@ -1,21 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import Area_Select from '../../assets/images/area_select.svg';
 import '../../assets/styles/spot.css';
-import { useAppSelector } from '../../redux/hook';
-import { getSelectedSpotProps, getSpotListProps } from '../../redux/spotSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import {
+  getSelectedSpotIdProps,
+  getSpotListProps,
+  setSpotList,
+} from '../../redux/spotSlice';
 import SpotInfo from './SpotInfo';
 import SpotDetailInfo from './SpotDetailInfo';
 import Dropdown from './Dropdown';
 import { SpotType } from '../../types/map.type';
+import { getUserCollectionList } from '../../api/instagram';
+import { useParams } from 'react-router-dom';
 
 const SpotList = () => {
+  const dispatch = useAppDispatch();
+
+  const params = useParams();
   const [view, setView] = useState(false);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [spots, setSpots] = useState<SpotType[]>([]);
-
+  const [hasNextPage, setHasNextPage] = useState<boolean>(false);
+  const [nextCursorId, setNextCursorId] = useState<number>(0);
   const spotListState = useAppSelector(getSpotListProps);
-  const selectedSpotState = useAppSelector(getSelectedSpotProps);
+  const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
+
+  useEffect(() => {
+    getNextCollectionList();
+  }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -24,6 +38,13 @@ const SpotList = () => {
       // setSpots 함수로 spots 상태에 추가
     }
   }, [page]);
+
+  const getNextCollectionList = async () => {
+    const res = await getUserCollectionList(params.userId || '');
+    dispatch(setSpotList(res.spotData));
+    setHasNextPage(res?.hasNextPage);
+    setNextCursorId(res?.nextCursorId);
+  };
 
   const handleScroll = () => {
     if (
@@ -65,7 +86,7 @@ const SpotList = () => {
       </div>
       <hr />
 
-      {!selectedSpotState ? (
+      {!selectedSpotIdState ? (
         <div className="spot-list">
           {spots.map((spot, idx) => (
             <SpotInfo key={idx} spotType={spot} />
@@ -74,7 +95,7 @@ const SpotList = () => {
         </div>
       ) : (
         <div className="spot-list">
-          <SpotDetailInfo spotContent={selectedSpotState} />
+          <SpotDetailInfo selectedId={selectedSpotIdState} />
         </div>
       )}
     </div>

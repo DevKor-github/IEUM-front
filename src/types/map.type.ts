@@ -13,13 +13,21 @@ export interface SpotType {
   icon: MarkerIcon;
   spotContent: SpotContent;
 }
+
 export interface SpotContent {
-  name: string;
+  instaGuestCollectionId: number;
+  placeId: number;
+  placeName: string;
+  latitude: number;
+  longitude: number;
   category: string;
-  shortAddress: string;
+  instagramDescription: string;
+  embeddedTag: string;
+  tags: [string];
+  addressLevel1: string;
+  addressLevel2: string;
+  link: string;
   address: string;
-  hashtag: string;
-  content: string;
-  officeHour: string;
+  openHours: [string];
   phoneNumber: string;
 }
