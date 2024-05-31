@@ -22,25 +22,27 @@ const SpotList = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [spots, setSpots] = useState<SpotType[]>([]);
-  const [hasNextPage, setHasNextPage] = useState<boolean>(false);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(true);
   const [nextCursorId, setNextCursorId] = useState<number>(0);
   const spotListState = useAppSelector(getSpotListProps);
   const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
 
+  // 초기 렌더링
   useEffect(() => {
     getNextCollectionList();
   }, []);
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && hasNextPage && page > 1) {
       setLoading(true);
       // 아이템 로드 로직 추가 (API 호출?)
       // setSpots 함수로 spots 상태에 추가
+      getNextCollectionList();
     }
   }, [page]);
 
   const getNextCollectionList = async () => {
-    const res = await getUserCollectionList(params.userId || '');
+    const res = await getUserCollectionList(params.userId || '', nextCursorId);
     dispatch(setSpotList(res.spotData));
     setHasNextPage(res?.hasNextPage);
     setNextCursorId(res?.nextCursorId);
