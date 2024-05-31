@@ -1,7 +1,7 @@
 name: docker-build
 
 on:
-#  push:
+  push:
 #    branches: ['main']
     tags:
       - release-**
