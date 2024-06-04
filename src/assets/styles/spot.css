@@ -77,7 +77,7 @@
 
 .spot-container .spot-list .spot-info{
     /*height: 370px;*/
-    padding: 23px;
+    padding: 23px 23px 5px 23px;
 }
 
 .spot-container .spot-list .spot-info .image-container{
@@ -101,7 +101,7 @@
     margin-left: 10px;
     color: grey;
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .spot-container .spot-list .spot-info .address{
@@ -118,7 +118,11 @@
 .spot-container .spot-list .spot-info .content p{
     white-space: pre-line;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.spot-container .spot-list .spot-info .content.summary p{
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
