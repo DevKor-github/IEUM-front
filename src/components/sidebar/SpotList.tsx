@@ -27,9 +27,11 @@ const SpotList = () => {
   const spotListState = useAppSelector(getSpotListProps);
   const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
 
-  // 초기 렌더링
   useEffect(() => {
-    getNextCollectionList();
+    // 초기 랜더링
+    if (spotListState.length == 0) {
+      getNextCollectionList();
+    }
   }, []);
 
   useEffect(() => {
