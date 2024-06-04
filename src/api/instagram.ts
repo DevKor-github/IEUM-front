@@ -31,7 +31,6 @@ export const getUserMarker = async (instaId: string) => {
       openHours: item?.openHours,
       phoneNumber: item?.phoneNumber,
     };
-    console.log(getCategoryType(item?.representativeCategory));
     return {
       position: new naver.maps.LatLng(content.latitude, content.longitude),
       icon: getCategoryType(item?.representativeCategory),
