@@ -19,20 +19,21 @@ const SpotInfo = (props: SpotInfoPropsType) => {
   }, [instaContent]);
   return (
     <>
-      <div dangerouslySetInnerHTML={{ __html: instaContent }}></div>
-
       <div className="spot-info">
         <div>
           <span className="spot-name">{spotContent.placeName}</span>
           <span className="spot-type">{spotContent.category}</span>
         </div>
         <span className="address">{spotContent.address}</span>
-        <div className="content">
+        <div className="content summary">
           <span className="hashtag">{spotContent.tags?.join(',')}</span>
           <p>{spotContent.instagramDescription}</p>
         </div>
       </div>
-      <hr />
+      <div
+        style={{ marginBottom: '55px' }}
+        dangerouslySetInnerHTML={{ __html: instaContent }}
+      ></div>
     </>
   );
 };

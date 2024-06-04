@@ -18,11 +18,6 @@ const MobileSpotInfo = (props: SpotInfoPropsType) => {
   }, []);
   return (
     <>
-      <div
-        className="imbed"
-        dangerouslySetInnerHTML={{ __html: instaContent }}
-      ></div>
-
       <div className="spot-info">
         <div>
           <span className="spot-name">{spotContent.placeName}</span>
@@ -34,6 +29,10 @@ const MobileSpotInfo = (props: SpotInfoPropsType) => {
           <p>{spotContent.instagramDescription}</p>
         </div>
       </div>
+      <div
+        className="imbed"
+        dangerouslySetInnerHTML={{ __html: instaContent }}
+      ></div>
     </>
   );
 };
