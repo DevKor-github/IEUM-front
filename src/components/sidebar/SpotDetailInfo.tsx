@@ -62,12 +62,12 @@ const SpotDetailInfo = (props: SpotDetailInfoPropsType) => {
             </div>
           </div>
 
-          <div className="share-insta">
-            <button>
-              <img src={InstaIcon} alt="share_button" />
-            </button>
-            <span>바로가기</span>
-          </div>
+          {/*<div className="share-insta">*/}
+          {/*  <button>*/}
+          {/*    <img src={InstaIcon} alt="share_button" />*/}
+          {/*  </button>*/}
+          {/*  <span>바로가기</span>*/}
+          {/*</div>*/}
         </div>
 
         <div className="content">

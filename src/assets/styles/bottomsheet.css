@@ -31,7 +31,7 @@
 }
 
 .bottom-sheet-background .spot-list .spot-info {
-    margin-top: 130px;
+    /*margin-top: 130px;*/
 }
 
 .bottom-sheet-background .spot-list .spot-info .spot-name{
@@ -112,7 +112,7 @@
 
 .bottom-sheet-background .spot-list .imbed {
     width: 90lvw;
-    height: 100%;
+    /*height: 100%;*/
 }
 
 
