@@ -6,13 +6,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { HelmetProvider } from 'react-helmet-async';
 // import store from './store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <App />
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
   </Provider>,
   // </React.StrictMode>,
 );

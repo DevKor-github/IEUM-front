@@ -9,8 +9,11 @@ import MobileProfile from './sidebar/MobileProfile';
 import { useAppSelector } from '../redux/hook';
 import { getIsValidUser } from '../redux/spotSlice';
 import ErrorLogo from '../assets/images/error_icon.svg';
+import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 const Main = () => {
   const isValidUser = useAppSelector(getIsValidUser);
+  const params = useParams();
   const sideView = () => {
     if (!isValidUser) {
       return (
@@ -40,6 +43,9 @@ const Main = () => {
   };
   return (
     <React.Fragment>
+      <Helmet>
+        <title>{params.userId || ''}님의 지도</title>
+      </Helmet>
       <div id="main">
         {sideView()}
         <div id="map-view">
