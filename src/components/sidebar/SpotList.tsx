@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import {
   getSelectedSpotIdProps,
   getSpotListProps,
+  setIsValidUser,
   setSpotList,
 } from '../../redux/spotSlice';
 import SpotInfo from './SpotInfo';
@@ -44,10 +45,17 @@ const SpotList = () => {
   }, [page]);
 
   const getNextCollectionList = async () => {
-    const res = await getUserCollectionList(params.userId || '', nextCursorId);
-    dispatch(setSpotList(res.spotData));
-    setHasNextPage(res?.hasNextPage);
-    setNextCursorId(res?.nextCursorId);
+    try {
+      const res = await getUserCollectionList(
+        params.userId || '',
+        nextCursorId,
+      );
+      dispatch(setSpotList(res.spotData));
+      setHasNextPage(res?.hasNextPage);
+      setNextCursorId(res?.nextCursorId);
+    } catch (err) {
+      dispatch(setIsValidUser(false));
+    }
   };
 
   const handleScroll = () => {

@@ -6,12 +6,14 @@ export interface SpotSliceState {
   spotList: SpotType[];
   markerList: SpotType[];
   selectedSpotId: number | null;
+  isValidUser: boolean;
 }
 
 const initialState: SpotSliceState = {
   spotList: [],
   markerList: [],
   selectedSpotId: null,
+  isValidUser: true,
 };
 
 export const spotSlice = createAppSlice({
@@ -31,15 +33,23 @@ export const spotSlice = createAppSlice({
         state.selectedSpotId = action.payload;
       },
     ),
+    setIsValidUser: create.reducer((state, action: PayloadAction<boolean>) => {
+      state.isValidUser = action.payload;
+    }),
   }),
   selectors: {
     getSpotListProps: (spotState) => spotState.spotList,
     getMarkerListProps: (spotState) => spotState.markerList,
     getSelectedSpotIdProps: (spotState) => spotState.selectedSpotId,
+    getIsValidUser: (spotState) => spotState.isValidUser,
   },
 });
 
-export const { setSpotList, setMarkerList, setSelectedSpotId } =
+export const { setSpotList, setMarkerList, setSelectedSpotId, setIsValidUser } =
   spotSlice.actions;
-export const { getSpotListProps, getMarkerListProps, getSelectedSpotIdProps } =
-  spotSlice.selectors;
+export const {
+  getSpotListProps,
+  getMarkerListProps,
+  getSelectedSpotIdProps,
+  getIsValidUser,
+} = spotSlice.selectors;

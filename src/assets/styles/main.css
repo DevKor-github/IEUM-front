@@ -10,6 +10,30 @@
 
 }
 
+#side-bar-view.invalid{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#side-bar-view.invalid p{
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 25px;
+    text-align: center;
+    color: #7F7F7F;
+    margin: 0px;
+}
+
+#side-bar-view.invalid b{
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 25px;
+    text-align: center;
+    color: black;
+}
+
 #map-view {
     width: 100%;
     height: 100%;
