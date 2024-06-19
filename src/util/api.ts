@@ -10,7 +10,7 @@ export const API = axios.create({
 API.interceptors.response.use(
   (response) => {
     // 응답 데이터를 변환합니다.
-    return response;
+    return response?.data;
   },
   (error) => {
     // 에러를 그대로 전달합니다.
