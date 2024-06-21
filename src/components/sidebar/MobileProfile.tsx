@@ -23,30 +23,35 @@ const MobileProfile = () => {
 
   return (
     <>
-      <div className="mobile-profile-container">
-        <img src={Blank_Profile} alt="profile-img" className="profile-img" />
+      <div
+        className="mobile-profile-container"
+        style={{ width: `${window.screen.width}px` }}
+      >
+        <div className="mobile-profile">
+          <img src={Blank_Profile} alt="profile-img" className="profile-img" />
 
-        <div className="user-info">
-          <div>
-            <span className="id">{params.userId}</span>
-            <span>님의 지도</span>
+          <div className="user-info">
+            <div>
+              <span className="id">{params.userId}</span>
+              <span>님의 지도</span>
+            </div>
+
+            <div className="spot-info">
+              <img src={Location_Num_Icon} alt="spot-icon" />
+              <span>{`${spotListState.length}개의 장소`}</span>
+            </div>
           </div>
 
-          <div className="spot-info">
-            <img src={Location_Num_Icon} alt="spot-icon" />
-            <span>{`${spotListState.length}개의 장소`}</span>
+          <div className="share">
+            <button
+              onClick={() =>
+                handleCopyClipBoard(`${baseUrl}${location.pathname}`)
+              }
+            >
+              <img src={Share_Icon} alt="share_button" className="share-icon" />
+            </button>
+            <span>공유</span>
           </div>
-        </div>
-
-        <div className="share">
-          <button
-            onClick={() =>
-              handleCopyClipBoard(`${baseUrl}${location.pathname}`)
-            }
-          >
-            <img src={Share_Icon} alt="share_button" className="share-icon" />
-          </button>
-          <span>공유</span>
         </div>
       </div>
     </>
