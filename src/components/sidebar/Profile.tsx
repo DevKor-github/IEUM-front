@@ -6,12 +6,13 @@ import Location_Num_Icon from '../../assets/images/location_num_icon.svg';
 import '../../assets/styles/profile.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hook';
-import { getSpotListProps } from '../../redux/spotSlice';
+import { getMarkerListProps } from '../../redux/spotSlice';
+
 const Profile = () => {
   const params = useParams();
   const location = useLocation();
   const baseUrl = 'https://ieum.devkor.club';
-  const spotListState = useAppSelector(getSpotListProps);
+  const markerListState = useAppSelector(getMarkerListProps);
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -36,7 +37,7 @@ const Profile = () => {
 
           <div className="spot-info">
             <img src={Location_Num_Icon} alt="spot-icon" />
-            <span>{`${spotListState.length}개의 장소`}</span>
+            <span>{`${markerListState.length}개의 장소`}</span>
           </div>
         </div>
         <div className="share">
