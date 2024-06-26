@@ -31,7 +31,7 @@
 }
 
 .bottom-sheet-background .spot-list .spot-info {
-    margin-top: 130px;
+    /*margin-top: 130px;*/
 }
 
 .bottom-sheet-background .spot-list .spot-info .spot-name{
@@ -40,7 +40,7 @@
 }
 
 .bottom-sheet-background .spot-list .spot-info .spot-type{
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     margin-left: 10px;
     color: grey;
@@ -63,9 +63,19 @@
 }
 
 .bottom-sheet-background .spot-list .spot-info .content p{
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 400;
+    margin-bottom: 20px;
 }
+
+.bottom-sheet-background .spot-list .spot-info .content.summary p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
 
 .bottom-sheet-background .spot-list .spot-info .share-insta{
     display: grid;
@@ -102,7 +112,7 @@
 
 .bottom-sheet-background .spot-list .imbed {
     width: 90lvw;
-    height: 100%;
+    /*height: 100%;*/
 }
 
 

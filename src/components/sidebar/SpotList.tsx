@@ -1,80 +1,106 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Area_Select from '../../assets/images/area_select.svg';
 import '../../assets/styles/spot.css';
-import { useAppSelector } from '../../redux/hook';
-import { getSelectedSpotProps, getSpotListProps } from '../../redux/spotSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import {
+  getSelectedSpotIdProps,
+  getSpotListProps,
+  setIsValidUser,
+  setSpotList,
+} from '../../redux/spotSlice';
 import SpotInfo from './SpotInfo';
 import SpotDetailInfo from './SpotDetailInfo';
 import Dropdown from './Dropdown';
 import { SpotType } from '../../types/map.type';
+import { getUserCollectionList } from '../../api/instagram';
+import { useParams } from 'react-router-dom';
+import { useIntersectionObserver } from '../UseIntersectionObserver';
 
 const SpotList = () => {
-  const [view, setView] = useState(false);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [spots, setSpots] = useState<SpotType[]>([]);
+  const dispatch = useAppDispatch();
 
-  const spotListState = useAppSelector(getSpotListProps);
-  const selectedSpotState = useAppSelector(getSelectedSpotProps);
+  const params = useParams();
+  const [spots, setSpots] = useState<SpotType[]>([]);
+  const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
+  const lastElementRef = useRef<HTMLDivElement | null>(null);
+  const nextCursorId = useRef<number>(0);
+  const hasNextPage = useRef<boolean>(true);
+  const loading = useRef<boolean>(false);
+
+  const { observe, unobserve } = useIntersectionObserver({
+    onIntersection({ target }) {
+      getNextCollectionList();
+    },
+  });
 
   useEffect(() => {
-    if (!loading) {
-      setLoading(true);
-      // 아이템 로드 로직 추가 (API 호출?)
-      // setSpots 함수로 spots 상태에 추가
-    }
-  }, [page]);
+    const lastElement = lastElementRef?.current;
+    if (!lastElement) return;
+    if (loading.current) return;
+    observe(lastElement);
+    return () => {
+      unobserve(lastElement);
+    };
+  }, []);
 
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
-    )
-      return;
-    setPage((prevPage) => prevPage + 1);
+  const getNextCollectionList = async () => {
+    try {
+      if (!hasNextPage.current && loading.current) return;
+      loading.current = true;
+      const res = await getUserCollectionList(
+        params.userId || '',
+        nextCursorId.current,
+      );
+      setSpots((prevSpots: SpotType[]) => [...prevSpots, ...res?.spotData]);
+      hasNextPage.current = res?.hasNextPage;
+      nextCursorId.current = res?.nextCursorId;
+    } catch (err) {
+      dispatch(setIsValidUser(false));
+    }
+    loading.current = false;
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    setSpots((prevSpots: SpotType[]) => [...prevSpots, ...spotListState]);
-    setLoading(false);
-  }, [spotListState]);
+    dispatch(setSpotList(spots));
+  }, [spots]);
 
   return (
-    <div className="spot-container">
-      <div className="category">
-        <div className="header">
-          <div className="dropdown">
-            <span>지역 </span>
-            <button onClick={() => setView(!view)}>
-              <img src={Area_Select} alt="" />
-            </button>
-          </div>
-          <button className="category-button">
-            <span>서울</span>
-          </button>
-          <button className="category-button">
-            <span>부산</span>
-          </button>
-        </div>
-        {view && <Dropdown />}
-      </div>
+    <div className="spot-container" id="spot-container">
+      {/*<div className="category">*/}
+      {/*  <div className="header">*/}
+      {/*    <div className="dropdown">*/}
+      {/*      <span>지역 </span>*/}
+      {/*      <button onClick={() => setView(!view)}>*/}
+      {/*        <img src={Area_Select} alt="" />*/}
+      {/*      </button>*/}
+      {/*    </div>*/}
+      {/*    <button className="category-button">*/}
+      {/*      <span>서울</span>*/}
+      {/*    </button>*/}
+      {/*    <button className="category-button">*/}
+      {/*      <span>부산</span>*/}
+      {/*    </button>*/}
+      {/*  </div>*/}
+      {/*  {view && <Dropdown />}*/}
+      {/*</div>*/}
       <hr />
 
-      {!selectedSpotState ? (
+      {!selectedSpotIdState ? (
         <div className="spot-list">
           {spots.map((spot, idx) => (
             <SpotInfo key={idx} spotType={spot} />
           ))}
-          {loading && <p>Loading...</p>}
+
+          {!loading.current && (
+            <p
+              ref={lastElementRef}
+              style={{ height: '10px', margin: '0px' }}
+            ></p>
+          )}
         </div>
       ) : (
         <div className="spot-list">
-          <SpotDetailInfo spotContent={selectedSpotState} />
+          <SpotDetailInfo selectedId={selectedSpotIdState} />
         </div>
       )}
     </div>

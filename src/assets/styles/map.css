@@ -8,51 +8,75 @@
     height:25px;
 }
 
-.marker.dog {
+.marker.Dog {
     background-image: url("../images/marker/dog_marker.svg");
     background-size:cover;
 }
-.marker.dog.active {
+.marker.Dog.active {
     background-image: url("../images/marker/dog_active_marker.svg");
     background-size:cover;
 }
-.marker.bar {
+.marker.Bar {
     background-image: url("../images/marker/bar_marker.svg");
     background-size:cover;
 }
-.marker.bar.active {
+.marker.Bar.active {
     background-image: url("../images/marker/bar_active_marker.svg");
     background-size:cover;
 }
-.marker.bakery {
+.marker.Bakery {
     background-image: url("../images/marker/bakery_marker.svg");
     background-size:cover;
 }
-.marker.bakery.active {
-    background-image: url("../images//marker/bakery_active_marker.svg");
+.marker.Bakery.active {
+    background-image: url("../images/marker/bakery_active_marker.svg");
     background-size:cover;
 }
-.marker.cafe {
+.marker.Cafe {
     background-image: url("../images/marker/cafe_marker.svg");
     background-size:cover;
 }
-.marker.cafe.active {
+.marker.Cafe.active {
     background-image: url("../images/marker/cafe_active_marker.svg");
     background-size:cover;
 }
-.marker.museum {
+.marker.Culture {
     background-image: url("../images/marker/museum_marker.svg");
     background-size:cover;
 }
-.marker.museum.active {
+.marker.Culture.active {
     background-image: url("../images/marker/museum_active_marker.svg");
     background-size:cover;
 }
-.marker.restaurant {
+.marker.Restaurant {
     background-image: url("../images/marker/restaurant_marker.svg");
     background-size:cover;
 }
-.marker.restaurant.active {
+.marker.Restaurant.active {
      background-image: url("../images/marker/restaurant_active_marker.svg");
+     background-size:cover;
+ }
+.marker.Stay {
+    background-image: url("../images/marker/stay_marker.svg");
+    background-size:cover;
+}
+.marker.Stay.active {
+     background-image: url("../images/marker/stay_active_marker.svg");
+     background-size:cover;
+ }
+.marker.Shopping {
+    background-image: url("../images/marker/shopping_marker.svg");
+    background-size:cover;
+}
+.marker.Shopping.active {
+     background-image: url("../images/marker/shopping_active_marker.svg");
+     background-size:cover;
+ }
+.marker.Others {
+    background-image: url("../images/marker/others_marker.svg");
+    background-size:cover;
+}
+.marker.Others.active {
+     background-image: url("../images/marker/others_active_marker.svg");
      background-size:cover;
  }

@@ -1,10 +1,13 @@
 export enum MarkerIcon {
-  BAKERY = 'bakery',
-  BAR = 'bar',
-  CAFE = 'cafe',
-  DOG = 'dog',
-  RESTAUTANT = 'restaurant',
-  MUSEUM = 'museum',
+  BAKERY = 'Bakery',
+  BAR = 'Bar',
+  CAFE = 'Cafe',
+  DOG = 'Dog',
+  RESTAURANT = 'Restaurant',
+  CULTURE = 'Culture',
+  STAY = 'Stay',
+  SHOPPING = 'Shopping',
+  OTHERS = 'Others',
 }
 
 export interface SpotType {
@@ -13,13 +16,21 @@ export interface SpotType {
   icon: MarkerIcon;
   spotContent: SpotContent;
 }
+
 export interface SpotContent {
-  name: string;
+  instaGuestCollectionId: number;
+  placeId: number;
+  placeName: string;
+  latitude: number;
+  longitude: number;
   category: string;
-  shortAddress: string;
+  instagramDescription: string;
+  embeddedTag: string;
+  tags: [string];
+  addressLevel1: string;
+  addressLevel2: string;
+  link: string;
   address: string;
-  hashtag: string;
-  content: string;
-  officeHour: string;
+  openHours: [string];
   phoneNumber: string;
 }
