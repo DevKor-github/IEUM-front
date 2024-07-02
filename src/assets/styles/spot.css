@@ -59,15 +59,21 @@
     background-color: #f9f9f9;
 }
 
+.spot-container {
+    width: 435px;
+    display: flex;
+    flex: 1;
+    min-height: 0px;
+}
+
 .spot-container hr {
     height: 1px !important;
+    overflow-y: auto;
 }
 
 .spot-container .spot-list {
-    width: 435px;
-    height: 535px;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    flex: 1;
+    overflow-y: auto;
 }
 
 .insta-embed-iframe{

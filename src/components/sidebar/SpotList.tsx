@@ -1,20 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Area_Select from '../../assets/images/area_select.svg';
 import '../../assets/styles/spot.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import {
   getSelectedSpotIdProps,
-  getSpotListProps,
   setIsValidUser,
   setSpotList,
 } from '../../redux/spotSlice';
-import SpotInfo from './SpotInfo';
 import SpotDetailInfo from './SpotDetailInfo';
-import Dropdown from './Dropdown';
 import { SpotType } from '../../types/map.type';
 import { getUserCollectionList } from '../../api/instagram';
 import { useParams } from 'react-router-dom';
 import { useIntersectionObserver } from '../UseIntersectionObserver';
+import SpotInfo from './SpotInfo';
 
 const SpotList = () => {
   const dispatch = useAppDispatch();
