@@ -51,6 +51,10 @@ const Profile = () => {
           <span>공유</span>
         </div>
       </div>
+      <div className="place-info">
+        <hr />
+        <div>5 PLACES SAVED</div>
+      </div>
     </div>
   );
 };

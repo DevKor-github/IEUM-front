@@ -5,7 +5,6 @@ const SideInfo = () => {
   return (
     <>
       <Profile />
-      <hr />
       <SpotList />
     </>
   );

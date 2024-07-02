@@ -60,6 +60,25 @@
     justify-self: center;
 }
 
+.place-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: left;
+    color: #FF5570;
+    margin-top: 33px;
+    hr{
+        width: 245px;
+        height: 1.2px;
+        border: 0;
+        background: #FF55708C;
+        margin: 0 12px 0 0;
+    }
+}
+
 .mobile-profile-container {
     position: fixed;
     display: flex;
