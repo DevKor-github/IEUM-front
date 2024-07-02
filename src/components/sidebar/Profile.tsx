@@ -53,7 +53,7 @@ const Profile = () => {
       </div>
       <div className="place-info">
         <hr />
-        <div>5 PLACES SAVED</div>
+        <div>{markerListState.length} PLACES SAVED</div>
       </div>
     </div>
   );

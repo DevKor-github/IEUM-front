@@ -20,7 +20,7 @@ const SpotList = () => {
   const [spots, setSpots] = useState<SpotType[]>([]);
   const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
   const lastElementRef = useRef<HTMLDivElement | null>(null);
-  const nextCursorId = useRef<number>(0);
+  const nextCursorId = useRef<number>();
   const hasNextPage = useRef<boolean>(true);
   const loading = useRef<boolean>(false);
 
@@ -42,12 +42,14 @@ const SpotList = () => {
 
   const getNextCollectionList = async () => {
     try {
-      if (!hasNextPage.current && loading.current) return;
+      console.log('hasNextPage', hasNextPage);
+      if (!hasNextPage.current || loading.current) return;
       loading.current = true;
       const res = await getUserCollectionList(
         params.userId || '',
         nextCursorId.current,
       );
+      console.log('api res', res);
       setSpots((prevSpots: SpotType[]) => [...prevSpots, ...res?.spotData]);
       hasNextPage.current = res?.hasNextPage;
       nextCursorId.current = res?.nextCursorId;
