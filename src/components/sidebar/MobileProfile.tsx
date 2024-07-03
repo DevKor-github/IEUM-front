@@ -37,7 +37,11 @@ const MobileProfile = () => {
             </div>
 
             <div className="spot-info">
-              <img src={Location_Num_Icon} alt="spot-icon" />
+              <img
+                src={Location_Num_Icon}
+                alt="spot-icon"
+                style={{ width: '13px', height: '13px' }}
+              />
               <span>{`${markerListState.length}개의 장소`}</span>
             </div>
           </div>

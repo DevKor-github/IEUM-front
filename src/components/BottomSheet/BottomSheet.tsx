@@ -20,9 +20,8 @@ const SheetBackground = styled(motion.div)`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 80lvh;
+  height: 72lvh;
   background: white;
-  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
   border-radius: 24px 24px 0 0;
   padding: 12px 0 24px 0;
   will-change: transform;
@@ -97,7 +96,7 @@ const BottomSheet = () => {
     <>
       <SheetBackground
         className="bottom-sheet-background"
-        animate={isOpened ? { top: `25dvh` } : { top: `calc(100dvh - 50px)` }}
+        animate={isOpened ? { top: `25dvh` } : { top: `calc(100dvh - 45px)` }}
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
         onTap={() => setIsOpened(!isOpened)}

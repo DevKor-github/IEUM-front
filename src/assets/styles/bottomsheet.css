@@ -1,5 +1,5 @@
 .bottom-sheet-background .header{
-    height: 40px;
+    height: 30px;
     cursor: grab;
     user-select: none;
 }
@@ -8,13 +8,15 @@
     width: 55px;
     height: 4px;
     background: #dfdfdf;
+    margin-top: 12px;
     margin: 0 auto;
 }
 
 .bottom-sheet-background .wrapper{
-    width: 100%;
     color: black;
-    padding: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 5px;
 }
 
 .bottom-sheet-background .content{
@@ -30,19 +32,15 @@
     height: 65lvh;
 }
 
-.bottom-sheet-background .spot-list .spot-info {
-    /*margin-top: 130px;*/
-}
-
 .bottom-sheet-background .spot-list .spot-info .spot-name{
     font-size: 18px;
     font-weight: 600;
 }
 
 .bottom-sheet-background .spot-list .spot-info .spot-type{
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    margin-left: 10px;
+    margin-left: 8px;
     color: grey;
 }
 
@@ -53,8 +51,8 @@
 }
 
 .bottom-sheet-background .spot-list .spot-info .content{
-    width: 90%;
-    margin-bottom: 20px;
+    width: 88lvw;
+    margin-bottom: 13px;
 }
 
 .bottom-sheet-background .spot-list .spot-info .content .hashtag{
@@ -65,7 +63,6 @@
 .bottom-sheet-background .spot-list .spot-info .content p{
     font-size: 14px;
     font-weight: 400;
-    margin-bottom: 20px;
 }
 
 .bottom-sheet-background .spot-list .spot-info .content.summary p{
@@ -75,7 +72,6 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
-
 
 .bottom-sheet-background .spot-list .spot-info .share-insta{
     display: grid;
@@ -99,21 +95,21 @@
 
 .bottom-sheet-background .spot-list .spot-info .meta-info div{
     display: flex;
-    align-items: center;
-    font-size: 13px;
+    align-items: flex-start;
+    font-size: 14px;
     font-weight: 400;
     line-height: 20px;
     text-align: left;
+    margin-bottom: 3px;
 }
 
 .bottom-sheet-background .spot-list .spot-info .meta-info div img{
     margin-right: 10px;
+    margin-top: 3px;
 }
 
 .bottom-sheet-background .spot-list .imbed {
-    width: 90lvw;
-    /*height: 100%;*/
+    width: 88lvw;
 }
-
 
 

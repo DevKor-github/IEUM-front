@@ -58,9 +58,9 @@ const MobileSpotDetailInfo = (props: SpotDetailInfoPropsType) => {
               <span className="spot-name">{spotContent?.placeName}</span>
               <span className="spot-type">{spotContent?.category}</span>
             </div>
-            <div>
+            {/* <div>
               <span className="address">{spotContent?.address}</span>
-            </div>
+            </div> */}
           </div>
 
           {/* <div className="share-insta"> */}
@@ -72,7 +72,7 @@ const MobileSpotDetailInfo = (props: SpotDetailInfoPropsType) => {
         </div>
 
         <div className="content">
-          <span className="hashtag">{spotContent?.category}</span>
+          {/* <span className="hashtag">{spotContent?.category}</span> */}
           <p>{spotContent?.instagramDescription}</p>
         </div>
 
