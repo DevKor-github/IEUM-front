@@ -5,13 +5,13 @@ import Share_Icon from '../../assets/images/share_icon.svg';
 import '../../assets/styles/profile.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hook';
-import { getSpotListProps } from '../../redux/spotSlice';
+import { getMarkerListProps } from '../../redux/spotSlice';
 
 const MobileProfile = () => {
   const params = useParams();
   const location = useLocation();
   const baseUrl = 'https://ieum.devkor.club';
-  const spotListState = useAppSelector(getSpotListProps);
+  const markerListState = useAppSelector(getMarkerListProps);
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -42,7 +42,7 @@ const MobileProfile = () => {
                 alt="spot-icon"
                 style={{ width: '13px', height: '13px' }}
               />
-              <span>{`${spotListState.length}개의 장소`}</span>
+              <span>{`${markerListState.length}개의 장소`}</span>
             </div>
           </div>
 

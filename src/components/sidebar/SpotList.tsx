@@ -1,20 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Area_Select from '../../assets/images/area_select.svg';
 import '../../assets/styles/spot.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import {
   getSelectedSpotIdProps,
-  getSpotListProps,
   setIsValidUser,
   setSpotList,
 } from '../../redux/spotSlice';
-import SpotInfo from './SpotInfo';
 import SpotDetailInfo from './SpotDetailInfo';
-import Dropdown from './Dropdown';
 import { SpotType } from '../../types/map.type';
 import { getUserCollectionList } from '../../api/instagram';
 import { useParams } from 'react-router-dom';
 import { useIntersectionObserver } from '../UseIntersectionObserver';
+import SpotInfo from './SpotInfo';
 
 const SpotList = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +20,7 @@ const SpotList = () => {
   const [spots, setSpots] = useState<SpotType[]>([]);
   const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
   const lastElementRef = useRef<HTMLDivElement | null>(null);
-  const nextCursorId = useRef<number>(0);
+  const nextCursorId = useRef<number>();
   const hasNextPage = useRef<boolean>(true);
   const loading = useRef<boolean>(false);
 
@@ -45,12 +42,14 @@ const SpotList = () => {
 
   const getNextCollectionList = async () => {
     try {
-      if (!hasNextPage.current && loading.current) return;
+      console.log('hasNextPage', hasNextPage);
+      if (!hasNextPage.current || loading.current) return;
       loading.current = true;
       const res = await getUserCollectionList(
         params.userId || '',
         nextCursorId.current,
       );
+      console.log('api res', res);
       setSpots((prevSpots: SpotType[]) => [...prevSpots, ...res?.spotData]);
       hasNextPage.current = res?.hasNextPage;
       nextCursorId.current = res?.nextCursorId;
