@@ -8,9 +8,9 @@ interface SpotInfoPropsType {
 }
 
 const MobileSpotInfo = (props: SpotInfoPropsType) => {
+  const dispatch = useAppDispatch();
   const { spotContent, position, icon } = props.spotType;
   const [instaContent, setInstaContent] = useState<string>('');
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (window?.instgrm) {
