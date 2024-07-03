@@ -73,18 +73,6 @@
     -webkit-box-orient: vertical;
 }
 
-/* .bottom-sheet-background .spot-list .spot-info .content.summary .info.button {
-    background-color: transparent;
-    border-color: transparent;
-    display: flex;
-    align-items: flex-start;
-}
-
-.bottom-sheet-background .spot-list .spot-info .content.summary .info.button p{
-    font-size: 14px;
-    color: grey;
-} */
-
 .bottom-sheet-background .spot-list .spot-info .share-insta{
     display: grid;
     margin-left: 270px;

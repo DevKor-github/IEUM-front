@@ -11,7 +11,6 @@ const MobileSpotInfo = (props: SpotInfoPropsType) => {
   const { spotContent, position, icon } = props.spotType;
   const [instaContent, setInstaContent] = useState<string>('');
   const dispatch = useAppDispatch();
-  // const [moreInfo, setMoreInfo] = useState(false);
 
   useEffect(() => {
     if (window?.instgrm) {
@@ -39,23 +38,6 @@ const MobileSpotInfo = (props: SpotInfoPropsType) => {
           <span className="spot-type">{spotContent.category}</span>
         </div>
         <span className="address">{spotContent.address}</span>
-        {/* {!moreInfo ? (
-          <div className="content summary">
-            <span className="hashtag">{spotContent.tags?.join(',')}</span>
-            <p>{spotContent.instagramDescription}</p>
-            <button
-              className="info button"
-              onClick={() => setMoreInfo(!moreInfo)}
-            >
-              더보기
-            </button>
-          </div>
-        ) : (
-          <div className="content summary">
-            <span className="hashtag">{spotContent.tags?.join(',')}</span>
-            <p>{spotContent.instagramDescription}</p>
-          </div>
-        )} */}
         <div className="content summary">
           <span className="hashtag">{spotContent.tags?.join(',')}</span>
           <p>{spotContent.instagramDescription}</p>
