@@ -42,12 +42,14 @@ export const getUserMarker = async (instaId: string) => {
 
 export const getUserCollectionList = async (
   instaId: string,
-  cusorId: number = 0,
-  region: string = '',
+  cursorId: number | undefined,
+  region: string | undefined = undefined,
 ) => {
-  const res = await API.get(
-    `/instagram/collections/${instaId}?cusorId=${cusorId}&region=${region}`,
-  );
+  const params = {
+    cursorId,
+    region,
+  };
+  const res = await API.get(`/instagram/collections/${instaId}`, { params });
   const { data, hasNextPage, nextCursorId } = res.data;
   const spotData: SpotType[] = data.map((item: any) => {
     const content = {
