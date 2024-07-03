@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { motion } from 'framer-motion';
 import '../../assets/styles/bottomsheet.css';
@@ -14,6 +14,7 @@ import MobileSpotDetailInfo from '../sidebar/MobileSpotDetailInfo';
 import { SpotType } from '../../types/map.type';
 import { getUserCollectionList } from '../../api/instagram';
 import { useParams } from 'react-router-dom';
+import { useIntersectionObserver } from '../UseIntersectionObserver';
 
 const SheetBackground = styled(motion.div)`
   position: absolute;
@@ -35,62 +36,54 @@ const BottomSheet = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [view, setView] = useState(false);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
 
   const [spots, setSpots] = useState<SpotType[]>([]);
-  const [hasNextPage, setHasNextPage] = useState<boolean>(true);
-  const [nextCursorId, setNextCursorId] = useState<number>(0);
   const spotListState = useAppSelector(getSpotListProps);
   const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
 
-  useEffect(() => {
-    // 초기 랜더링
-    if (spotListState.length == 0) {
+  const lastElementRef = useRef<HTMLDivElement | null>(null);
+  const nextCursorId = useRef<number>();
+  const hasNextPage = useRef<boolean>(true);
+  const loading = useRef<boolean>(false);
+
+  const { observe, unobserve } = useIntersectionObserver({
+    onIntersection({ target }) {
       getNextCollectionList();
-    }
-  }, []);
+    },
+  });
 
   useEffect(() => {
-    if (!loading && hasNextPage && page > 1) {
-      setLoading(true);
-      // 아이템 로드 로직 추가 (API 호출?)
-      // setSpots 함수로 spots 상태에 추가
-      getNextCollectionList();
-    }
-  }, [page]);
+    const lastElement = lastElementRef?.current;
+    if (!lastElement) return;
+    if (loading.current) return;
+    observe(lastElement);
+    return () => {
+      unobserve(lastElement);
+    };
+  }, []);
 
   const getNextCollectionList = async () => {
     try {
+      console.log('hasNextPage', hasNextPage);
+      if (!hasNextPage.current || loading.current) return;
+      loading.current = true;
       const res = await getUserCollectionList(
         params.userId || '',
-        nextCursorId,
+        nextCursorId.current,
       );
-      dispatch(setSpotList(res.spotData));
-      setHasNextPage(res?.hasNextPage);
-      setNextCursorId(res?.nextCursorId);
+      console.log('api res', res);
+      setSpots((prevSpots: SpotType[]) => [...prevSpots, ...res?.spotData]);
+      hasNextPage.current = res?.hasNextPage;
+      nextCursorId.current = res?.nextCursorId;
     } catch (err) {
       dispatch(setIsValidUser(false));
     }
-  };
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
-    )
-      return;
-    setPage((prevPage) => prevPage + 1);
+    loading.current = false;
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    setSpots((prevSpots: SpotType[]) => [...prevSpots, ...spotListState]);
-    setLoading(false);
-  }, [spotListState]);
+    dispatch(setSpotList(spots));
+  }, [spots]);
 
   return (
     <>
@@ -112,7 +105,13 @@ const BottomSheet = () => {
                 {spots.map((spot, idx) => (
                   <MobileSpotInfo key={idx} spotType={spot} />
                 ))}
-                {loading && <p>Loading...</p>}
+
+                {!loading.current && (
+                  <p
+                    ref={lastElementRef}
+                    style={{ height: '10px', margin: '0px' }}
+                  ></p>
+                )}
               </div>
             ) : (
               <div className="spot-list">
