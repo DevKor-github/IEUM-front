@@ -33,7 +33,7 @@ const SpotDetailInfo = (props: SpotDetailInfoPropsType) => {
     );
     setSpotContent(spot);
     setAddress(spot?.address || '');
-    setOpenHours(spot?.openHours?.join(',') || '');
+    setOpenHours(spot?.openHours?.join('\n') || '');
     setPhoneNumber(spot?.phoneNumber || '');
     const parser = new DOMParser();
     const doc = parser.parseFromString(spot?.embeddedTag || '', 'text/html');

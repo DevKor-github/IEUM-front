@@ -108,6 +108,10 @@
     margin-top: 3px;
 }
 
+.bottom-sheet-background .spot-list .spot-info .meta-info div span{
+    white-space: pre-wrap;
+}
+
 .bottom-sheet-background .spot-list .imbed {
     width: 88lvw;
 }
