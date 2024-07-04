@@ -89,7 +89,13 @@ const BottomSheet = () => {
     <>
       <SheetBackground
         className="bottom-sheet-background"
-        animate={isOpened ? { top: `25dvh` } : { top: `calc(100dvh - 45px)` }}
+        animate={
+          isOpened
+            ? { top: `25dvh` }
+            : selectedSpotIdState
+              ? { top: '25dvh' }
+              : { top: `calc(100dvh - 45px)` }
+        }
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
         onTap={() => setIsOpened(!isOpened)}
