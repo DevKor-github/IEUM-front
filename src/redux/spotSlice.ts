@@ -6,6 +6,7 @@ export interface SpotSliceState {
   spotList: SpotType[];
   markerList: SpotType[];
   selectedSpotId: number | null;
+  selectedPlaceId: number | null;
   isValidUser: boolean;
 }
 
@@ -13,6 +14,7 @@ const initialState: SpotSliceState = {
   spotList: [],
   markerList: [],
   selectedSpotId: null,
+  selectedPlaceId: null,
   isValidUser: true,
 };
 
@@ -33,6 +35,11 @@ export const spotSlice = createAppSlice({
         state.selectedSpotId = action.payload;
       },
     ),
+    setSelectedPlaceId: create.reducer(
+      (state, action: PayloadAction<number | null>) => {
+        state.selectedPlaceId = action.payload;
+      },
+    ),
     setIsValidUser: create.reducer((state, action: PayloadAction<boolean>) => {
       state.isValidUser = action.payload;
     }),
@@ -41,15 +48,22 @@ export const spotSlice = createAppSlice({
     getSpotListProps: (spotState) => spotState.spotList,
     getMarkerListProps: (spotState) => spotState.markerList,
     getSelectedSpotIdProps: (spotState) => spotState.selectedSpotId,
+    getSelectedPlaceIdProps: (spotState) => spotState.selectedPlaceId,
     getIsValidUser: (spotState) => spotState.isValidUser,
   },
 });
 
-export const { setSpotList, setMarkerList, setSelectedSpotId, setIsValidUser } =
-  spotSlice.actions;
+export const {
+  setSpotList,
+  setMarkerList,
+  setSelectedSpotId,
+  setSelectedPlaceId,
+  setIsValidUser,
+} = spotSlice.actions;
 export const {
   getSpotListProps,
   getMarkerListProps,
   getSelectedSpotIdProps,
+  getSelectedPlaceIdProps,
   getIsValidUser,
 } = spotSlice.selectors;

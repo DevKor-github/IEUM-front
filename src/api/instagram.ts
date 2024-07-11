@@ -43,11 +43,13 @@ export const getUserMarker = async (instaId: string) => {
 export const getUserCollectionList = async (
   instaId: string,
   cursorId: number | undefined,
+  placeId: number | undefined = undefined,
   region: string | undefined = undefined,
 ) => {
   const params = {
-    cursorId,
+    cursorId: placeId ? undefined : cursorId,
     region,
+    placeId,
   };
   const res = await API.get(`/instagram/collections/${instaId}`, { params });
   const { data, hasNextPage, nextCursorId } = res.data;
