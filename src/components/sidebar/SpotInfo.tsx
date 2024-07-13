@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SpotType } from '../../types/map.type';
 import { useAppDispatch } from '../../redux/hook';
-import { setSelectedSpotId } from '../../redux/spotSlice';
+import { setSelectedPlaceId, setSelectedSpotId } from '../../redux/spotSlice';
 
 interface SpotInfoPropsType {
   spotType: SpotType;
@@ -21,8 +21,9 @@ const SpotInfo = (props: SpotInfoPropsType) => {
     setInstaContent(doc.documentElement.textContent || '');
   }, [instaContent]);
 
-  const handleSpot = (id: number) => {
-    dispatch(setSelectedSpotId(id));
+  const handleSpot = (instaGuestCollectionId: number, placeId: number) => {
+    dispatch(setSelectedSpotId(instaGuestCollectionId));
+    dispatch(setSelectedPlaceId(placeId));
   };
 
   return (
@@ -30,7 +31,7 @@ const SpotInfo = (props: SpotInfoPropsType) => {
       <div
         className="spot-info"
         onClick={() => {
-          handleSpot(spotContent.instaGuestCollectionId);
+          handleSpot(spotContent.instaGuestCollectionId, spotContent.placeId);
         }}
       >
         <div>

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../../assets/styles/spot.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import {
+  getSelectedPlaceIdProps,
   getSelectedSpotIdProps,
   setIsValidUser,
   setSpotList,
@@ -19,10 +20,19 @@ const SpotList = () => {
   const params = useParams();
   const [spots, setSpots] = useState<SpotType[]>([]);
   const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
+  const selectedPlaceIdState = useAppSelector(getSelectedPlaceIdProps);
   const lastElementRef = useRef<HTMLDivElement | null>(null);
   const nextCursorId = useRef<number>();
   const hasNextPage = useRef<boolean>(true);
   const loading = useRef<boolean>(false);
+
+  useEffect(() => {
+    hasNextPage.current = true;
+    setSpots([]);
+    if (!selectedPlaceIdState) return;
+
+    getNextCollectionList(selectedPlaceIdState);
+  }, [selectedPlaceIdState]);
 
   const { observe, unobserve } = useIntersectionObserver({
     onIntersection({ target }) {
@@ -38,18 +48,20 @@ const SpotList = () => {
     return () => {
       unobserve(lastElement);
     };
-  }, []);
+  }, [spots]);
 
-  const getNextCollectionList = async () => {
+  const getNextCollectionList = async (
+    placeId: number | undefined = undefined,
+  ) => {
     try {
-      console.log('hasNextPage', hasNextPage);
+      console.log(hasNextPage.current);
       if (!hasNextPage.current || loading.current) return;
       loading.current = true;
       const res = await getUserCollectionList(
         params.userId || '',
         nextCursorId.current,
+        placeId,
       );
-      console.log('api res', res);
       setSpots((prevSpots: SpotType[]) => [...prevSpots, ...res?.spotData]);
       hasNextPage.current = res?.hasNextPage;
       nextCursorId.current = res?.nextCursorId;

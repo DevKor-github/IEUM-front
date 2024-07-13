@@ -4,9 +4,11 @@ import { SpotType } from '../../types/map.type';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import {
   getMarkerListProps,
-  getSelectedSpotIdProps,
+  getSelectedPlaceIdProps,
   setMarkerList,
+  setSelectedPlaceId,
   setSelectedSpotId,
+  setSpotList,
 } from '../../redux/spotSlice';
 import { useParams } from 'react-router-dom';
 import { getUserMarker } from '../../api/instagram';
@@ -14,7 +16,7 @@ import { getUserMarker } from '../../api/instagram';
 const MapView = () => {
   const dispatch = useAppDispatch();
   const markerListState = useAppSelector(getMarkerListProps);
-  const selectedSpotIdProps = useAppSelector(getSelectedSpotIdProps);
+  const selectedPlaceIdProps = useAppSelector(getSelectedPlaceIdProps);
   const params = useParams();
   const mapRef = useRef<HTMLDivElement | null>(null);
 
@@ -73,13 +75,13 @@ const MapView = () => {
       if (key === null) return;
 
       const marker = markerListState.find(
-        (item) => item.spotContent.instaGuestCollectionId === key,
+        (item) => item.spotContent.placeId === key,
       );
       if (!marker) return;
 
       const markerHtml = createMarkerHtml(
         marker.icon,
-        marker.spotContent.instaGuestCollectionId,
+        marker.spotContent.placeId,
       );
       selectedMarker.current?.setIcon({
         content: markerHtml,
@@ -89,24 +91,25 @@ const MapView = () => {
 
       selectedMarker.current = null;
       setSelectedSpotIdx(-1);
+      dispatch(setSelectedPlaceId(null));
+      dispatch(setSpotList([]));
       dispatch(setSelectedSpotId(null));
     });
   }, [markerListState, naverMap]);
 
   useEffect(() => {
-    if (selectedSpotIdProps) {
+    if (selectedPlaceIdProps) {
       const marker = markerListState.find(
-        (item) =>
-          item.spotContent.instaGuestCollectionId === selectedSpotIdProps,
+        (item) => item.spotContent.placeId === selectedPlaceIdProps,
       );
       if (!marker) return;
 
-      const selectedNaverMarker = naverMarkerList.get(selectedSpotIdProps);
+      const selectedNaverMarker = naverMarkerList.get(selectedPlaceIdProps);
       if (!selectedNaverMarker) return;
 
       const highlightMarkerHtml = createMarkerHtml(
         marker.icon,
-        marker.spotContent.instaGuestCollectionId,
+        marker.spotContent.placeId,
         true,
       );
       selectedNaverMarker.setIcon({
@@ -116,9 +119,9 @@ const MapView = () => {
       });
 
       selectedMarker.current = selectedNaverMarker;
-      setSelectedSpotIdx(selectedSpotIdProps);
+      setSelectedSpotIdx(selectedPlaceIdProps);
     }
-  }, [selectedSpotIdProps]);
+  }, [selectedPlaceIdProps]);
 
   const createMarkerHtml = (
     icon: string,
@@ -131,7 +134,7 @@ const MapView = () => {
     markerListState.forEach((marker: SpotType) => {
       const markerHtml = createMarkerHtml(
         marker.icon,
-        marker.spotContent.instaGuestCollectionId,
+        marker.spotContent.placeId,
       );
       let markerOptions: naver.maps.MarkerOptions = {
         position: marker.position,
@@ -146,7 +149,7 @@ const MapView = () => {
 
       setNaverMarkerList((prevState) => {
         const newMarkerList = new Map(prevState);
-        newMarkerList.set(marker.spotContent.instaGuestCollectionId, newMarker);
+        newMarkerList.set(marker.spotContent.placeId, newMarker);
         return newMarkerList;
       });
 
@@ -161,7 +164,7 @@ const MapView = () => {
           }
           const highlightMarkerHtml = createMarkerHtml(
             marker.icon,
-            marker.spotContent.instaGuestCollectionId,
+            marker.spotContent.placeId,
             true,
           );
           newMarker.setIcon({
@@ -180,7 +183,7 @@ const MapView = () => {
           });
           selectedMarker.current = null;
         }
-        handleMarker(marker.spotContent.instaGuestCollectionId);
+        handleMarker(marker.spotContent.placeId);
       });
     });
   };
@@ -189,15 +192,15 @@ const MapView = () => {
     setSelectedSpotIdx((prev) => {
       // 선택해제
       if (prev === idx) {
-        dispatch(setSelectedSpotId(null));
+        dispatch(setSelectedPlaceId(null));
         return -1;
       } else {
         const spot: SpotType | undefined = markerListState.find(
-          (spot) => spot.spotContent.instaGuestCollectionId === idx,
+          (spot) => spot.spotContent.placeId === idx,
         );
 
         if (!spot) return -1;
-        dispatch(setSelectedSpotId(spot.spotContent.instaGuestCollectionId));
+        dispatch(setSelectedPlaceId(spot.spotContent.placeId));
         return idx;
       }
     });
