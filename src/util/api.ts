@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const API = axios.create({
-  // baseURL: 'https://api.ieum.devkor.club',
-  baseURL: 'https://dev.api.ieum.devkor.club',
+  baseURL: 'https://api.ieum.devkor.club',
+  // baseURL: 'https://dev.api.ieum.devkor.club',
   timeout: 3000,
   withCredentials: true,
 });
