@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import '../../assets/styles/bottomsheet.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import {
+  getSelectedPlaceIdProps,
   getSelectedSpotIdProps,
-  getSpotListProps,
   setIsValidUser,
   setSpotList,
 } from '../../redux/spotSlice';
@@ -38,13 +38,21 @@ const BottomSheet = () => {
   const [page, setPage] = useState(1);
 
   const [spots, setSpots] = useState<SpotType[]>([]);
-  const spotListState = useAppSelector(getSpotListProps);
   const selectedSpotIdState = useAppSelector(getSelectedSpotIdProps);
+  const selectedPlaceIdState = useAppSelector(getSelectedPlaceIdProps);
 
   const lastElementRef = useRef<HTMLDivElement | null>(null);
   const nextCursorId = useRef<number>();
   const hasNextPage = useRef<boolean>(true);
   const loading = useRef<boolean>(false);
+
+  useEffect(() => {
+    hasNextPage.current = true;
+    setSpots([]);
+    if (!selectedPlaceIdState) return;
+
+    getNextCollectionList(selectedPlaceIdState);
+  }, [selectedPlaceIdState]);
 
   const { observe, unobserve } = useIntersectionObserver({
     onIntersection({ target }) {
@@ -60,18 +68,20 @@ const BottomSheet = () => {
     return () => {
       unobserve(lastElement);
     };
-  }, []);
+  }, [spots]);
 
-  const getNextCollectionList = async () => {
+  const getNextCollectionList = async (
+    placeId: number | undefined = undefined,
+  ) => {
     try {
-      console.log('hasNextPage', hasNextPage);
+      console.log(hasNextPage.current);
       if (!hasNextPage.current || loading.current) return;
       loading.current = true;
       const res = await getUserCollectionList(
         params.userId || '',
         nextCursorId.current,
+        placeId,
       );
-      console.log('api res', res);
       setSpots((prevSpots: SpotType[]) => [...prevSpots, ...res?.spotData]);
       hasNextPage.current = res?.hasNextPage;
       nextCursorId.current = res?.nextCursorId;
@@ -94,7 +104,9 @@ const BottomSheet = () => {
             ? { top: `25dvh` }
             : selectedSpotIdState
               ? { top: '25dvh' }
-              : { top: `calc(100dvh - 45px)` }
+              : selectedPlaceIdState
+                ? { top: `25dvh` }
+                : { top: `calc(100dvh - 45px)` }
         }
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
