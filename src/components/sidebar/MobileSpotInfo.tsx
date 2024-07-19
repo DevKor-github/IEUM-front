@@ -11,6 +11,7 @@ const MobileSpotInfo = (props: SpotInfoPropsType) => {
   const dispatch = useAppDispatch();
   const { spotContent, position, icon } = props.spotType;
   const [instaContent, setInstaContent] = useState<string>('');
+  const maxLength = 100;
 
   useEffect(() => {
     if (window?.instgrm) {
@@ -26,6 +27,11 @@ const MobileSpotInfo = (props: SpotInfoPropsType) => {
     dispatch(setSelectedPlaceId(placeId));
   };
 
+  const spliceSpotContent = (content: string) => {
+    if (content.length < maxLength) return content;
+    return content.substring(0, 100) + '...';
+  };
+
   return (
     <>
       <div
@@ -39,9 +45,12 @@ const MobileSpotInfo = (props: SpotInfoPropsType) => {
           <span className="spot-type">{spotContent.category}</span>
         </div>
         <span className="address">{spotContent.address}</span>
-        <div className="content summary">
+        <div className="content">
           <span className="hashtag">{spotContent.tags?.join(',')}</span>
-          <p>{spotContent.instagramDescription}</p>
+          <p>
+            <span>{spliceSpotContent(spotContent.instagramDescription)}</span>
+            <span style={{ color: 'gray' }}>더보기</span>
+          </p>
         </div>
       </div>
       <div

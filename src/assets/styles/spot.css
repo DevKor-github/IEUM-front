@@ -84,6 +84,7 @@
 .spot-container .spot-list .spot-info{
     /*height: 370px;*/
     padding: 23px 23px 5px 23px;
+    cursor: pointer;
 }
 
 .spot-container .spot-list .spot-info .image-container{
